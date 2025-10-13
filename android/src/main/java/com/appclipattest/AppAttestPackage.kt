@@ -1,4 +1,4 @@
-package com.appattest
+package com.gautham.appattest
 
 import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule

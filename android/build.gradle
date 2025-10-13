@@ -26,7 +26,7 @@ def getExtOrIntegerDefault(name) {
 }
 
 android {
-  namespace "com.appattest"
+  namespace "com.gautham.appattest"
 
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
 

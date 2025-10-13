@@ -102,7 +102,7 @@ export default function App() {
   };
 
   return (
-    <View style={{ flex: 1, paddingTop: 10 }}>
+    <View style={styles.exampleContainer}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>🔐 App Attest Example</Text>
 
@@ -147,6 +147,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
+  exampleContainer: { flex: 1, paddingTop: 10 },
   container: {
     padding: 24,
     alignItems: 'center',

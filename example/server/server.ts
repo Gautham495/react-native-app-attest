@@ -1,13 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import crypto from 'crypto';
-import { verifyAttestationAndExtractPublicKey } from './helpers/attest-verifier.js';
+import { verifyAttestationAndExtractPublicKey } from './helpers/attest-verifier.ts';
 import {
   setChallenge,
   getChallenge,
   clearChallenge,
-} from './helpers/challenge-manager.js';
-import { storeKey } from './helpers/keystore.js';
+} from './helpers/challenge-manager.ts';
+import { storeKey } from './helpers/keystore.ts';
 
 const app = express();
 
