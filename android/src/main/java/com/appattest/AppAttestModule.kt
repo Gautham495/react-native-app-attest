@@ -7,7 +7,7 @@ import com.facebook.react.module.annotations.ReactModule
 
 @ReactModule(name = AppAttestModule.NAME)
 class AppAttestModule(reactContext: ReactApplicationContext) :
-   NativeModule, TurboModule {
+   NativeAppAttestSpec(reactContext) {
 
   companion object {
     const val NAME = "AppAttest"
