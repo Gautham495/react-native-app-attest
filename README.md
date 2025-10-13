@@ -85,15 +85,6 @@ Ensure the provisioning profile for the App ID contains the App Attest/DeviceChe
 
 App Attest provides Apple-signed, Secure Enclave–generated keys to help backends verify that a request truly comes from your legitimate app binary.
 
-This library was built for **production-grade iOS security** needs in real apps,
-then open-sourced to help other developers easily integrate App Attest in **React Native** projects.
-
----
-
-<picture>
-  <img alt="App Attest flow diagram" src="./docs/img/app-attest-flow.png" />
-</picture>
-
 ---
 
 ## 🧠 What It Does
@@ -198,18 +189,15 @@ import { verifyAppAttestation } from './verify-app-attestation.js'; // implement
 const app = express();
 app.use(express.json());
 
-app.post('/verify-app-attest', async (req, res) => {
-  const { keyID, attestation, assertion, challenge } = req.body;
-  const result = await verifyAppAttestation({
-    keyID,
+app.post('/verify-attestation', async (req, res) => {
+  const { attestation, assertion, challenge } = req.body;
+  const result = await verifyAssertion({
     attestation,
     assertion,
     challenge,
   });
   res.json(result);
 });
-
-app.listen(3000, () => console.log('✅ Backend listening on 3000'));
 ```
 
 ---
@@ -219,7 +207,7 @@ app.listen(3000, () => console.log('✅ Backend listening on 3000'));
 - ✅ TurboModule bridge implementation
 - ✅ Works for App Clips and full apps
 - ✅ Example App with challenge/response flow
-- 🚧 Backend verification helper (`verify-app-attestation.js`)
+- 🚧 Backend verification helper (`server`)
 - 🔔 Add Apple App Attest Sandbox automatic support
 
 ---

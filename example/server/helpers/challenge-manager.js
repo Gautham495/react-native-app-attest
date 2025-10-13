@@ -1,5 +1,4 @@
-// Simple in-memory challenge store (replace with Redis in production)
-
+// Simple in-memory challenge store replace with database in real app as this is pseudo code for managing keys)
 const challengeStore = new Map();
 
  function setChallenge(sessionId, challengeBase64) {
