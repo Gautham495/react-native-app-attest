@@ -5,9 +5,9 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.module.annotations.ReactModule
 
-@ReactModule(name = AppAttestModule.NAME)
-class AppAttestModule(reactContext: ReactApplicationContext) :
-  NativeModule, TurboModule : {
+@ReactModule(name = AppAPNsModule.NAME)
+class AppAPNsModule(reactContext: ReactApplicationContext) :
+   NativeModule, TurboModule {
 
   companion object {
     const val NAME = "AppAttest"
