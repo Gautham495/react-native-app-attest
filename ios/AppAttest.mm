@@ -5,6 +5,19 @@
 
 RCT_EXPORT_MODULE();
 
+// Check if App Attest is supported
+RCT_EXPORT_METHOD(isSupported:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+  DCAppAttestService *service = [DCAppAttestService sharedService];
+  if (@available(iOS 14.0, *)) {
+    BOOL supported = service.isSupported;
+    resolve(@(supported));
+  } else {
+    resolve(@(NO));
+  }
+}
+
 // Generate Key
 RCT_EXPORT_METHOD(generateAppAttestKey:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)

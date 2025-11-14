@@ -1,5 +1,3 @@
-import 'react-native-quick-base64';
-import { btoa } from 'react-native-quick-base64';
 import { useState } from 'react';
 import {
   Text,
@@ -14,10 +12,12 @@ import {
   attestAppKey,
   generateAppAssertion,
 } from 'react-native-app-attest';
-import axios from 'axios'; // 🚀 add axios for backend call
+import axios from 'axios';
 
 // Helper: Convert server challenge to base64 if not already
-const sampleChallengeBase64 = btoa('example-server-challenge');
+// const sampleChallengeBase64 = btoa('example-server-challenge');
+
+const sampleChallengeBase64 = 'JoXTo07vh1wykOY9LyLWbFUZTK03QONjuO9NJn893aU';
 
 export default function App() {
   const [keyID, setKeyID] = useState<string | null>(null);
