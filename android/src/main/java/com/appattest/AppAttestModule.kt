@@ -16,11 +16,6 @@ class AppAttestModule(reactContext: ReactApplicationContext) :
   override fun getName(): String = NAME
 
   @ReactMethod
-  override fun isSupported(promise: Promise) {
-    promise.reject("not_supported", "This library's App Attest Implementation is only supported on iOS App.")
-  }
-
-  @ReactMethod
   override fun generateAppAttestKey(promise: Promise) {
     promise.reject("not_supported", "This library's App Attest Implementation is only supported on iOS App.")
   }

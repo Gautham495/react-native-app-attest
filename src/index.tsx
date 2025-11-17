@@ -1,13 +1,6 @@
 import AppAttest from './NativeAppAttest';
 
 /**
- * Check if AppAttest is supported in the current device
- */
-export async function isSupported(): Promise<boolean> {
-  return AppAttest.isSupported();
-}
-
-/**
  * Generate an App Attest key (if not already created).
  */
 export async function generateAppAttestKey(): Promise<string> {
