@@ -1,6 +1,6 @@
 {
   "name": "react-native-app-attest",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "React Native iOS App Attest wrapper for any iOS target (App Clip, app, extensions)",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
