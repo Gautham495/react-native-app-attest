@@ -93,6 +93,7 @@ This module wraps Apple’s `DCAppAttestService` and exposes three async methods
 
 ```ts
 {
+  isSupported(): Promise<boolean>;
   generateAppAttestKey(): Promise<string>;
   attestAppKey(keyID: string, challengeBase64: string): Promise<string>;
   generateAppAssertion(keyID: string, challengeBase64: string): Promise<string>;
