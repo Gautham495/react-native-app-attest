@@ -199,17 +199,6 @@ app.post('/verify-attestation', async (req, res) => {
   res.json(result);
 });
 ```
-
----
-
-## 📅 Roadmap
-
-- ✅ TurboModule bridge implementation
-- ✅ Works for App Clips and full apps
-- ✅ Example App with challenge/response flow
-- 🚧 Backend verification helper (`server`)
-- 🔔 Add Apple App Attest Sandbox automatic support
-
 ---
 
 ## 🧠 Security Notes
