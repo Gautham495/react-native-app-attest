@@ -94,18 +94,8 @@ This module wraps Apple’s `DCAppAttestService` and exposes three async methods
 ```ts
 {
   generateAppAttestKey(): Promise<string>;
-  attestAppKey(keyID: string, challengeBase64: string): Promise<string>;
-  generateAppAssertion(keyID: string, challengeBase64: string): Promise<string>;
-}
-```
-
-### Example Output
-
-```json
-{
-  "keyID": "8B90AEE0C1F3...",
-  "attestation": "MIICpjCCAY6gAwIBAgIQX7...",
-  "assertion": "MEUCIQDY..."
+  attestAppKey(keyID: string, challenge: string): Promise<string>;
+  generateAppAssertion(keyID: string, payload: string): Promise<string>;
 }
 ```
 
@@ -121,15 +111,20 @@ import {
 } from 'react-native-app-attest';
 import axios from 'axios';
 import { Alert } from 'react-native';
-import { btoa } from 'react-native-quick-base64'; // You can use a different method for generating base64
 
 export default async function secureHandshake() {
-  const challenge = btoa('example-server-challenge');
+  const challenge = 'example-server-challenge';
 
   try {
     const keyID = await generateAppAttestKey();
     const attestation = await attestAppKey(keyID, challenge);
-    const assertion = await generateAppAssertion(keyID, challenge);
+
+    const payload = JSON.stringify({
+      subject: 'Hello',
+      message: 'World',
+    });
+
+    const assertion = await generateAppAssertion(keyID, payload);
 
     const { data } = await axios.post(
       'https://your-backend.com/api/verify-app-attest',
@@ -153,59 +148,20 @@ export default async function secureHandshake() {
 
 ## 🧩 Supported Platforms
 
-| Platform                     | Status                               |
-| ---------------------------- | ------------------------------------ |
-| **iOS (14+)**                | ✅ Fully supported                   |
-| **App Clip**                 | ✅ Supported                         |
-| **Android**                  | 🚫 Not applicable                    |
-| **Expo (Custom Dev Client)** | ✅ Works out of the box              |
-| **Simulator**                | ⚠️ Not supported (no Secure Enclave) |
+| Platform      | Status                               |
+| ------------- | ------------------------------------ |
+| **iOS (14+)** | ✅ Fully supported                   |
+| **App Clip**  | ✅ Supported                         |
+| **Android**   | 🚫 Not applicable                    |
+| **Simulator** | ⚠️ Not supported (no Secure Enclave) |
 
 ---
 
-## 🛠️ Under the Hood
+## 🧰 Backend Verification
 
-This library wraps:
+You can use this library to verify your app attestation in the backend to secure your API:
 
-```
-DCAppAttestService.sharedService()
-  .generateKey()
-  .attestKey(keyID, clientDataHash)
-  .generateAssertion(keyID, clientDataHash)
-```
-
-- Written in Objective-C++ with TurboModule bindings.
-- Returns Base64-encoded `attestation` and `assertion` data ready for backend verification.
-- Compatible with any backend stack (Node.js, Go, Python, etc.) for verification against Apple’s root CA.
-
----
-
-## 🧰 Backend Verification Example (Node Express)
-
-```js
-import express from 'express';
-import { verifyAppAttestation } from './verify-app-attestation.js'; // implement Apple’s CA chain verification
-
-const app = express();
-app.use(express.json());
-
-app.post('/verify-attestation', async (req, res) => {
-  const { attestation, assertion, challenge } = req.body;
-  const result = await verifyAssertion({
-    attestation,
-    assertion,
-    challenge,
-  });
-  res.json(result);
-});
-```
----
-
-## 🧠 Security Notes
-
-- Use the **same challenge** string on client and backend.
-- Always verify attestation using Apple’s `Apple_App_Attestation_Root_CA.pem`.
-- Store generated keys securely in your backend DB (linked by user ID).
+https://www.npmjs.com/package/node-app-attest
 
 ---
 

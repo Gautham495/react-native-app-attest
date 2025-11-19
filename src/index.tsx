@@ -12,9 +12,9 @@ export async function generateAppAttestKey(): Promise<string> {
  */
 export async function attestAppKey(
   keyID: string,
-  challengeBase64: string
+  challenge: string
 ): Promise<string> {
-  return await AppAttest.attestAppKey(keyID, challengeBase64);
+  return await AppAttest.attestAppKey(keyID, challenge);
 }
 
 /**
@@ -22,9 +22,9 @@ export async function attestAppKey(
  */
 export async function generateAppAssertion(
   keyID: string,
-  challengeBase64: string
+  string: string
 ): Promise<string> {
-  return await AppAttest.generateAppAssertion(keyID, challengeBase64);
+  return await AppAttest.generateAppAssertion(keyID, string);
 }
 
 export default {

@@ -14,10 +14,7 @@ import {
 } from 'react-native-app-attest';
 import axios from 'axios';
 
-// Helper: Convert server challenge to base64 if not already
-// const sampleChallengeBase64 = btoa('example-server-challenge');
-
-const sampleChallengeBase64 = 'JoXTo07vh1wykOY9LyLWbFUZTK03QONjuO9NJn893aU';
+const challenge = 'example-server-challenge';
 
 export default function App() {
   const [keyID, setKeyID] = useState<string | null>(null);
@@ -25,7 +22,7 @@ export default function App() {
   const [assertion, setAssertion] = useState<string | null>(null);
   const [verificationResult, setVerificationResult] = useState<string | null>(
     null
-  ); // 🚀 new
+  );
 
   const handleGenerateKey = async () => {
     try {
@@ -44,7 +41,7 @@ export default function App() {
     }
 
     try {
-      const result = await attestAppKey(keyID, sampleChallengeBase64);
+      const result = await attestAppKey(keyID, challenge);
       setAttestation(result);
       Alert.alert('✅ Attestation Generated', result.slice(0, 50) + '...');
     } catch (err: any) {
@@ -58,8 +55,13 @@ export default function App() {
       return;
     }
 
+    const payload = JSON.stringify({
+      subject: 'Hello',
+      message: 'World',
+    });
+
     try {
-      const result = await generateAppAssertion(keyID, sampleChallengeBase64);
+      const result = await generateAppAssertion(keyID, payload);
       setAssertion(result);
       Alert.alert('✅ Assertion Generated', result.slice(0, 50) + '...');
     } catch (err: any) {
@@ -67,7 +69,6 @@ export default function App() {
     }
   };
 
-  // 🚀 New function: send attestation and assertion to backend
   const handleVerifyWithBackend = async () => {
     if (!keyID || !attestation || !assertion) {
       Alert.alert(
@@ -84,7 +85,7 @@ export default function App() {
           keyID,
           attestation,
           assertion,
-          challenge: sampleChallengeBase64,
+          challenge: challenge,
         }
       );
 
@@ -115,7 +116,6 @@ export default function App() {
         <Button title="Generate Assertion" onPress={handleGenerateAssertion} />
         <View style={styles.spacer} />
 
-        {/* 🚀 New button to verify on backend */}
         <Button title="Verify with Backend" onPress={handleVerifyWithBackend} />
         <View style={styles.spacer} />
 
@@ -135,7 +135,6 @@ export default function App() {
             {assertion || 'None'}
           </Text>
 
-          {/* 🚀 Show backend verification result */}
           <Text style={styles.label}>Verification Result:</Text>
           <Text selectable style={styles.value}>
             {verificationResult || 'Not verified yet'}
@@ -147,7 +146,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  exampleContainer: { flex: 1, paddingTop: 10 },
+  exampleContainer: { flex: 1, paddingTop: 100 },
   container: {
     padding: 24,
     alignItems: 'center',
